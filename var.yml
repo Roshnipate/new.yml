@@ -1,0 +1,7 @@
+- hosts: all
+  vars:
+   greet: good morning!
+  tasks:
+  - name: ansible variable example
+    debug:
+      msg: "{{greet}}"
