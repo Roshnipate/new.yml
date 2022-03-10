@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  tasks:
+    - name: package insatll
+      become: true
+      become_user: root
+      dnf:
+        state:
+        name:
+         - tcsh
+         - htop
