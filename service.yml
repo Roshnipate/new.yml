@@ -1,0 +1,27 @@
+---
+- name: install apache
+  hosts: all
+  become: true
+  tasks:
+    - name: install apache
+      package:
+        name: httpd
+        state: latest
+    - name: apache service
+      service:
+        name: httpd
+        state: started
+        enabled: true
+    - name: home page
+      copy:
+        dest: /var/www/html/index.html
+        content: "{{ ansible_fqdn }} webserver"
+    - name: check service
+      service_facts:
+    - name: firewall apache
+      firewalld:
+        service: http
+        immediate: true
+        permanent: true
+        stable: enabled
+      when: ansible_facts.services['firewalled.service'].state == "running"
